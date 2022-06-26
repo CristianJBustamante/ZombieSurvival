@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public Joystick joystickRotacion;
 
     public GameObject[] armas;
+    public GameObject armaActiva;
 
     public ParticleSystem fire;
 
@@ -26,19 +27,13 @@ public class PlayerMove : MonoBehaviour
 
     public AudioClip[] audios;
     public AudioSource controlAudio;
-    
-
-
-
-
-
-
 
 
     // Start is called before the first frame update
     void Start()
     {
         runSpeed = 3;
+
     }
 
     // Update is called once per frame
@@ -124,11 +119,13 @@ public class PlayerMove : MonoBehaviour
         {
             armas[0].SetActive(false);
             armas[1].SetActive(true);
+            armaActiva = armas[1];
         }
         else
         {
             armas[0].SetActive(true);
             armas[1].SetActive(false);
+            armaActiva = armas[0];
         }
     }
 
@@ -141,5 +138,7 @@ public class PlayerMove : MonoBehaviour
     public void disparo() {
         fire.Play();
         //controlAudio.PlayOneShot(audios[0]);
+        armaActiva.GetComponent<Arma>().disparar();
+        
     }
 }
