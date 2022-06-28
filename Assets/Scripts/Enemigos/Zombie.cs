@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
+    public float vida = 500;
+
 
     Animator anim;
     public GameObject jugador;
@@ -16,6 +18,8 @@ public class Zombie : MonoBehaviour
     private Quaternion _lookRotation;
     private Vector3 _direction;
 
+    private bool isDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +29,7 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (anim.GetBool("aRango") == false) {
+        if (anim.GetBool("aRango") == false && isDead == false) {
             transform.position = Vector3.MoveTowards(transform.position, jugador.transform.position, velocidad * Time.deltaTime);
 
             // Check if the position of the cube and sphere are approximately equal.
@@ -36,20 +40,18 @@ public class Zombie : MonoBehaviour
             }
         }
 
-        //Vector3 direccion = new Vector3(jugador.transform.position.x, 0, jugador.transform.position.z);
-        //Quaternion aRotar = Quaternion.LookRotation(direccion, Vector3.up);
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, aRotar, rotationSpeed * Time.deltaTime);
+        if (isDead == false) {
+            //find the vector pointing from our position to the target
+            _direction = (jugador.transform.position - transform.position).normalized;
+            //create the rotation we need to be in to look at the target
+            _lookRotation = Quaternion.LookRotation(_direction);
+            //rotate us over time according to speed until we are in the required rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
+        }
 
-
-
-        //find the vector pointing from our position to the target
-        _direction = (jugador.transform.position - transform.position).normalized;
-
-        //create the rotation we need to be in to look at the target
-        _lookRotation = Quaternion.LookRotation(_direction);
-
-        //rotate us over time according to speed until we are in the required rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
+        if (vida <= 0 && isDead==false) {
+            morir();
+        }
 
     }
 
@@ -76,4 +78,22 @@ public class Zombie : MonoBehaviour
         anim.SetBool("aRango", false);
         StopCoroutine("pasarCorrer");
     }
+
+    public void reducirVida(float daño) 
+    {
+        vida = vida - daño;
+    }
+
+    public void morir() {
+        isDead = true;
+        Destroy(this.GetComponent<Rigidbody>());
+        Destroy(this.GetComponent<CapsuleCollider>());
+        anim.SetBool("isDead", true);
+    }
+
+    public float getVida() {
+        return vida;
+    }
+
+    
 }

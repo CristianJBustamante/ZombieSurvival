@@ -36,6 +36,7 @@ public class Arma : MonoBehaviour
             bulletALanzar.transform.rotation = Quaternion.identity;
             bulletALanzar.GetComponent<Rigidbody>().velocity = Vector3.zero;
             bulletALanzar.GetComponent<Rigidbody>().AddForce(firepoint.transform.forward * bulletALanzar.GetComponent<Bala>().speed);
+            bulletALanzar.GetComponent<Bala>().damage = daño;
             bulletALanzar.GetComponent<Bala>().desactivacion();
         }
         else {
