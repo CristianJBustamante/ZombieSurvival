@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public float vida = 500;
+    public float vidaMaxima = 200;
+    public float vida = 200;
 
 
     Animator anim;
@@ -18,7 +19,9 @@ public class Zombie : MonoBehaviour
     private Quaternion _lookRotation;
     private Vector3 _direction;
 
-    private bool isDead = false;
+    public bool isDead = false;
+    public bool isSpawning = false;
+    public bool descomponiendo = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +32,7 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (anim.GetBool("aRango") == false && isDead == false) {
+        if (anim.GetBool("aRango") == false && isDead == false && isSpawning == false) {
             transform.position = Vector3.MoveTowards(transform.position, jugador.transform.position, velocidad * Time.deltaTime);
 
             // Check if the position of the cube and sphere are approximately equal.
@@ -49,6 +52,15 @@ public class Zombie : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
         }
 
+        if (isDead == true && descomponiendo == true) {
+            transform.position = new Vector3(transform.position.x, transform.position.y-0.001f, transform.position.z);
+        }
+
+        if (transform.position.y <= -1) {
+            descomponiendo = false;
+        }
+
+
         if (vida <= 0 && isDead==false) {
             morir();
         }
@@ -67,7 +79,6 @@ public class Zombie : MonoBehaviour
     {
         if (collision.gameObject.tag == "Jugador")
         {
-
             StartCoroutine("pasarCorrer");
         }
     }
@@ -85,15 +96,50 @@ public class Zombie : MonoBehaviour
     }
 
     public void morir() {
+        
         isDead = true;
-        Destroy(this.GetComponent<Rigidbody>());
-        Destroy(this.GetComponent<CapsuleCollider>());
+        this.GetComponent<Rigidbody>().detectCollisions = false;
+        this.GetComponent<CapsuleCollider>().enabled = false;
         anim.SetBool("isDead", true);
+        anim.Play("Zombie Die");
+        StartCoroutine("descomponer");
     }
 
     public float getVida() {
         return vida;
     }
 
+    // MECANICA DE SPAWWN
+    public void spawnear() 
+    {
+        vida = vidaMaxima;
+        isDead = false;
+        isSpawning = true;
+        descomponiendo = false;
+        anim = GetComponent<Animator>();
+        anim.Play("Zombie Spawn");
+        StartCoroutine("spawning");
+    }
+
+    IEnumerator spawning()
+
+    {
+        yield return new WaitForSeconds(3f);
+        this.GetComponent<Rigidbody>().detectCollisions = true;
+        this.GetComponent<CapsuleCollider>().enabled = true;
+        isSpawning = false;
+        StopCoroutine("spawning");
+    }
+
+    IEnumerator descomponer() {
+        yield return new WaitForSeconds(8f);
+        descomponiendo = true;
+        yield return new WaitForSeconds(2f);
+        this.gameObject.SetActive(false);
+
+    }
+
     
+
+
 }
