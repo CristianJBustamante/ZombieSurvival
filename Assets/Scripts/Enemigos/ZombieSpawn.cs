@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ZombieSpawn : MonoBehaviour
 {
-    
+
+    public ParticleSystem spawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,8 @@ public class ZombieSpawn : MonoBehaviour
         {
             zombieASpawn.transform.position = this.transform.position;
             zombieASpawn.transform.rotation = Quaternion.identity;
+            spawn.Play();
+           
             zombieASpawn.SetActive(true);
             zombieASpawn.GetComponent<Zombie>().spawnear();
             Debug.Log("entra");

@@ -29,6 +29,13 @@ public class PlayerMove : MonoBehaviour
     public AudioSource controlAudio;
 
 
+    public float vidaMaxima = 1000;
+    public float vidaActual = 1000;
+
+    public bool isDead = false;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,74 +46,83 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        if (isDead == false) {
         
-        // CON JOYSTICK
-        // Movimiento
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
+        
+            // CON JOYSTICK
+            // Movimiento
 
-        x = joystickMovimiento.Horizontal;
-        y = joystickMovimiento.Vertical;
+            x = joystickMovimiento.Horizontal;
+            y = joystickMovimiento.Vertical;
 
-        transform.Translate(x * Time.deltaTime * runSpeed, 0 , 0, Space.World);
-        transform.Translate(0, 0, y * Time.deltaTime * runSpeed, Space.World);
+            transform.Translate(x * Time.deltaTime * runSpeed, 0 , 0, Space.World);
+            transform.Translate(0, 0, y * Time.deltaTime * runSpeed, Space.World);
 
-        // Rotación
+            // Rotación
 
-        xR = joystickRotacion.Horizontal;
-        zR = joystickRotacion.Vertical;
+            xR = joystickRotacion.Horizontal;
+            zR = joystickRotacion.Vertical;
 
-        Vector3 direccion = new Vector3(xR, 0, zR);
+            Vector3 direccion = new Vector3(xR, 0, zR);
 
-        if (xR != 0 || zR != 0)
-        {
-            Quaternion aRotar = Quaternion.LookRotation(direccion, Vector3.up);
+            if (xR != 0 || zR != 0)
+            {
+                Quaternion aRotar = Quaternion.LookRotation(direccion, Vector3.up);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, aRotar, rotationSpeed * Time.deltaTime);
-        }
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, aRotar, rotationSpeed * Time.deltaTime);
+            }
 
-        //transform.Rotate(0, xR * Time.deltaTime * rotationSpeed, 0, Space.Self);
-        //transform.Rotate(0, yR * Time.deltaTime * rotationSpeed, 0, Space.Self);
+            //transform.Rotate(0, xR * Time.deltaTime * rotationSpeed, 0, Space.Self);
+            //transform.Rotate(0, yR * Time.deltaTime * rotationSpeed, 0, Space.Self);
 
 
 
-        animator.SetFloat("VelX", x);
-        animator.SetFloat("VelY", y);
+            animator.SetFloat("VelX", x);
+            animator.SetFloat("VelY", y);
 
        
 
-        if (xR != 0f && fireActive == false)
-        {
-            onFire = true;
+            if (xR != 0f && fireActive == false)
+            {
+                onFire = true;
             
-        }
+            }
         
-        if (xR == 0f) {
-            fireActive = false;
-        }
+            if (xR == 0f) {
+                fireActive = false;
+            }
         
 
-        if (onFire) {
-            StartCoroutine(disparar());
-            fireActive = true;
-            onFire = false;
+            if (onFire) {
+                StartCoroutine(disparar());
+                fireActive = true;
+                onFire = false;
+            }
+
+            if (fireActive == false) {
+                StopAllCoroutines();
+            }
+
+            float rotacion = this.transform.rotation.y;
+
+
+            if ((rotacion >= 0.45f && rotacion <= 0.85f) || (rotacion <= -0.45f && rotacion >= -0.85f))
+            {
+                animator.SetBool("Lateral", true);
+            }
+            else {
+                animator.SetBool("Lateral", false);
+            }
+
         }
 
-        if (fireActive == false) {
-            StopAllCoroutines();
-        }
-
-        float rotacion = this.transform.rotation.y;
-
-
-        if ((rotacion >= 0.45f && rotacion <= 0.85f) || (rotacion <= -0.45f && rotacion >= -0.85f))
+        if (vidaActual <= 0 && isDead == false)
         {
-            animator.SetBool("Lateral", true);
+            morir();
         }
-        else {
-            animator.SetBool("Lateral", false);
-        }
-       
+
 
     }
 
@@ -140,5 +156,20 @@ public class PlayerMove : MonoBehaviour
         //controlAudio.PlayOneShot(audios[0]);
         armaActiva.GetComponent<Arma>().disparar();
         
+    }
+
+    public void recibirDaño(float daño) {
+        if (vidaActual >= daño)
+        {
+            vidaActual = vidaActual - daño;
+        }
+        else {
+            vidaActual = 0;
+        }
+    }
+
+    public void morir() {
+        isDead = true;
+        animator.SetBool("Dead", true);
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Enemigos\Zombie.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <Compile Include="Assets\Scripts\Enemigos\PoolZombies.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\Scripts\Jugador.cs" />
     <Compile Include="Assets\EffectExamples\TutorialInfo\Scripts\Readme.cs" />
@@ -76,13 +77,15 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Scripts\Arma.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+    <Compile Include="Assets\Scripts\Enemigos\ZombieSpawn.cs" />
     <Compile Include="Assets\Scripts\SeguimientoCamara.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
-    <Compile Include="Assets\Scripts\Enemigos\ZombieSpawn.cs" />
-    <Compile Include="Assets\Scripts\Enemigos\PoolZombies.cs" />
+    <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
+    <Compile Include="Assets\Scripts\BarraVida.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\LightningBolt\Readme.txt" />
     <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
   </ItemGroup>
   <ItemGroup>
