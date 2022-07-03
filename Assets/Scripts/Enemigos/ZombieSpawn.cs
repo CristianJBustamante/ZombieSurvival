@@ -22,8 +22,8 @@ public class ZombieSpawn : MonoBehaviour
 
     IEnumerator spawnearZombies() {
         while (true) { 
-        spawnewarZombie();
         yield return new WaitForSeconds(Random.Range(8f, 10f));
+        spawnewarZombie();
         }
         
     }

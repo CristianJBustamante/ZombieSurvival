@@ -5,8 +5,8 @@ using UnityEngine;
 public class Bala : MonoBehaviour
 {
     public float damage;
-    public float speed = 240f;
-    public float ttl = 1f;
+    public float speed = 960f;
+    public float ttl = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +35,17 @@ public class Bala : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTrigerEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemigo")) {
-            collision.gameObject.GetComponent<Zombie>().reducirVida(damage);
-            Debug.Log(collision.gameObject.GetComponent<Zombie>().getVida());
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemigo"))
+        {
+            other.gameObject.GetComponent<Zombie>().reducirVida(damage);
+            Debug.Log(other.gameObject.GetComponent<Zombie>().getVida());
             StopCoroutine(desactivar());
             this.gameObject.SetActive(false);
         }

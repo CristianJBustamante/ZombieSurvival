@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Arma : MonoBehaviour
 {
-    public int cargador;
-    public int reserva;
+    
     public float daño;
+    public float firerate;
 
     public GameObject bala;
     public GameObject firepoint;
+
+    public float desviacionEscopeta=200;
+    public float perdigones=8;
 
 
 
@@ -28,23 +31,50 @@ public class Arma : MonoBehaviour
 
     public void disparar() {
 
+
+            switch (this.gameObject.tag) {
+
+                case "Escopeta":
+                    for (int i = 0; i < perdigones; i++)
+                    {
+                        disparo(getBulletDirection());
+
+                    }
+                    break;
+
+                case "Rifle":
+                    disparo(firepoint.transform.forward);
+                    break;
+
+            }
+
+    }
+    private void disparo(Vector3 direcion) {
         GameObject bulletALanzar = PoolDisparos.sharedInstance.GetPool();
         if (bulletALanzar != null)
         {
-            bulletALanzar.SetActive(true);
-            bulletALanzar.transform.position = firepoint.transform.position;
-            bulletALanzar.transform.rotation = Quaternion.identity;
-            bulletALanzar.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            bulletALanzar.GetComponent<Rigidbody>().AddForce(firepoint.transform.forward * bulletALanzar.GetComponent<Bala>().speed);
-            bulletALanzar.GetComponent<Bala>().damage = daño;
-            bulletALanzar.GetComponent<Bala>().desactivacion();
+                    bulletALanzar.SetActive(true);
+                    bulletALanzar.transform.position = firepoint.transform.position;
+                    bulletALanzar.transform.rotation = Quaternion.identity;
+                    bulletALanzar.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    bulletALanzar.GetComponent<Rigidbody>().AddForce(direcion * bulletALanzar.GetComponent<Bala>().speed); ;
+                    bulletALanzar.GetComponent<Bala>().damage = daño;
+                    bulletALanzar.GetComponent<Bala>().desactivacion();
         }
-        else {
+        else
+        {
             Debug.Log("No encunetro la bala");
         }
-
-
-        
-
     }
+
+    private Vector3 getBulletDirection() {
+        Vector3 direction = new Vector3(
+            firepoint.transform.forward.x + Random.Range(-desviacionEscopeta, desviacionEscopeta),
+            firepoint.transform.forward.y + Random.Range(-desviacionEscopeta, desviacionEscopeta),
+            firepoint.transform.forward.z + Random.Range(-desviacionEscopeta, desviacionEscopeta)
+            );
+        Debug.Log(direction);
+        return direction;
+    }
+
 }

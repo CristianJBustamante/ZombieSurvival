@@ -148,7 +148,7 @@ public class PlayerMove : MonoBehaviour
     IEnumerator disparar() {
         while (true) { 
         disparo();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(armaActiva.GetComponent<Arma>().firerate);
         }
     }
     public void disparo() {
