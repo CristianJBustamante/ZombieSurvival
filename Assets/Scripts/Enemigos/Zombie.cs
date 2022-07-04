@@ -29,6 +29,13 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        // ********** PRUEBA ************
+
+        //rigidbodies = transform.GetComponentsInChildren<Rigidbody>();
+        //setEnebled(false);
+
+        // ******************************
     }
 
     // Update is called once per frame
@@ -80,7 +87,24 @@ public class Zombie : MonoBehaviour
 
         if (vida <= 0 && isDead==false) {
             morir();
+            //setEnebled(true);
         }
+
+
+        // ********** PRUEBA ************
+
+        //if (Input.GetKeyDown(KeyCode.R)) {
+        //    setEnebled(true);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    setEnebled(false);
+        //}
+
+
+        // ******************************
+
 
     }
 
@@ -170,9 +194,25 @@ public class Zombie : MonoBehaviour
         yield return new WaitForSeconds(8f);
         descomponiendo = true;
         yield return new WaitForSeconds(2f);
+        //setEnebled(false);
         this.gameObject.SetActive(false);
 
     }
+
+    // PRUEBA
+
+    //private Rigidbody[] rigidbodies;
+
+    //public void setEnebled(bool enabled) {
+    //    bool isKinematic =! enabled;
+    //    foreach (Rigidbody rigidbody in rigidbodies) {
+    //        rigidbody.isKinematic = isKinematic;
+    //    }
+    //    anim.enabled = !enabled;
+
+    //}
+
+
 
     
 

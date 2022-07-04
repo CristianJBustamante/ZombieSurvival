@@ -35,7 +35,6 @@ public class ZombieSpawn : MonoBehaviour
             zombieASpawn.transform.position = this.transform.position;
             zombieASpawn.transform.rotation = Quaternion.identity;
             spawn.Play();
-           
             zombieASpawn.SetActive(true);
             zombieASpawn.GetComponent<Zombie>().spawnear();
             Debug.Log("entra");

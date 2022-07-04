@@ -73,7 +73,7 @@ public class Arma : MonoBehaviour
             firepoint.transform.forward.y + Random.Range(-desviacionEscopeta, desviacionEscopeta),
             firepoint.transform.forward.z + Random.Range(-desviacionEscopeta, desviacionEscopeta)
             );
-        Debug.Log(direction);
+        
         return direction;
     }
 
