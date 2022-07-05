@@ -300,6 +300,7 @@
 -r:"D:/Program Files/Unity Hub/Editor/2021.3.4f1/Editor/Data/PlaybackEngines/AndroidPlayer/Variations/mono/Managed/UnityEngine.VRModule.dll"
 -r:"D:/Program Files/Unity Hub/Editor/2021.3.4f1/Editor/Data/PlaybackEngines/AndroidPlayer/Variations/mono/Managed/UnityEngine.WindModule.dll"
 -r:"D:/Program Files/Unity Hub/Editor/2021.3.4f1/Editor/Data/PlaybackEngines/AndroidPlayer/Variations/mono/Managed/UnityEngine.XRModule.dll"
+-r:"D:/Proyectos Unity/Shoot or Die/Proyecto-GameFeel/Library/PackageCache/com.unity.cinemachine@2.8.6/Runtime/ThirdParty/clipper_library.dll"
 -r:"D:/Proyectos Unity/Shoot or Die/Proyecto-GameFeel/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/AOT/Newtonsoft.Json.dll"
 "Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventData/AxisEventData.cs"
 "Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventData/BaseEventData.cs"
