@@ -8,6 +8,9 @@ TagManager:
   - Jugador
   - Rifle
   - Enemigo
+  - ObjetivoTexto
+  - ZonaFinal
+  - Bala
   layers:
   - Default
   - TransparentFX

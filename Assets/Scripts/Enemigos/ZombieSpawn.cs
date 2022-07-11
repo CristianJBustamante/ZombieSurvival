@@ -36,12 +36,13 @@ public class ZombieSpawn : MonoBehaviour
             zombieASpawn.transform.rotation = Quaternion.identity;
             spawn.Play();
             zombieASpawn.SetActive(true);
+            zombieASpawn.transform.GetChild(2).gameObject.SetActive(false);
             zombieASpawn.GetComponent<Zombie>().spawnear();
-            Debug.Log("entra");
+            
         }
         else
         {
-            Debug.Log("No encunetro el zombie");
+            //Debug.Log("No encunetro el zombie");
         }
     }
 }

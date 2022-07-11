@@ -28,9 +28,9 @@ public class Bala : MonoBehaviour
 
     IEnumerator desactivar()
     {
-        StopCoroutine(desactivar());
         yield return new WaitForSeconds(ttl);
         this.gameObject.SetActive(false);
+        StopCoroutine(desactivar());
 
 
     }
@@ -45,9 +45,15 @@ public class Bala : MonoBehaviour
         if (other.gameObject.CompareTag("Enemigo"))
         {
             other.gameObject.GetComponent<Zombie>().reducirVida(damage);
-            Debug.Log(other.gameObject.GetComponent<Zombie>().getVida());
             StopCoroutine(desactivar());
             this.gameObject.SetActive(false);
+        }
+        else {
+            if(other.gameObject.tag != "Bala")
+            { 
+            StopCoroutine(desactivar());
+            this.gameObject.SetActive(false);
+            }
         }
     }
 }

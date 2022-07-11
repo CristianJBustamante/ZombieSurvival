@@ -27,6 +27,7 @@ public class Recogible : MonoBehaviour
     {
         if (other.gameObject.tag == "Jugador") {
             gameManager.GetComponent<GameManager>().objetosMision--;
+            gameManager.GetComponent<GameManager>().cambiarTextoMision();
             Destroy(transform.GetChild(0).gameObject,0);
             Destroy(this, 0);
         }

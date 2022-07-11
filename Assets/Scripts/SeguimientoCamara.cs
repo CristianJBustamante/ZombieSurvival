@@ -17,7 +17,7 @@ public class SeguimientoCamara : MonoBehaviour
     void Update()
     {
         Vector3 posObjetivo = new Vector3(objetivo.transform.position.x, objetivo.transform.position.y + 10, objetivo.transform.position.z -2);
-        transform.position = Vector3.Lerp(transform.position, posObjetivo, Time.deltaTime * 2);
+        transform.position = Vector3.Lerp(transform.position, posObjetivo, Time.deltaTime * 4);
 
     }
 }

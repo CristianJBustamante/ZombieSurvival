@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public float vidaMaxima = 200;
-    public float vida = 200;
+    public float vidaMaxima = 100;
+    public float vidaActual = 100;
     public float ataque = 100;
 
     Animator anim;
@@ -23,6 +23,9 @@ public class Zombie : MonoBehaviour
     public bool isDead = false;
     public bool isSpawning = false;
     public bool descomponiendo = false;
+
+    GameObject Canvas;
+    bool unactiveCanvas = false;
     
 
     // Start is called before the first frame update
@@ -31,9 +34,7 @@ public class Zombie : MonoBehaviour
         anim = GetComponent<Animator>();
 
         // ********** PRUEBA ************
-
-        //rigidbodies = transform.GetComponentsInChildren<Rigidbody>();
-        //setEnebled(false);
+        Canvas = this.transform.GetChild(2).gameObject;
 
         // ******************************
     }
@@ -77,30 +78,32 @@ public class Zombie : MonoBehaviour
 
 
         if (isDead == true && descomponiendo == true) {
-            transform.position = new Vector3(transform.position.x, transform.position.y-0.001f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y-0.002f, transform.position.z);
         }
 
-        if (transform.position.y <= -1) {
+        if (transform.position.y <= -2) {
             descomponiendo = false;
         }
 
 
-        if (vida <= 0 && isDead==false) {
+        if (vidaActual <= 0 && isDead==false) {
             morir();
             //setEnebled(true);
         }
 
+        if (vidaActual < vidaMaxima) {
+            this.transform.GetChild(2).gameObject.SetActive(true);
+        }
+
+        if (isDead == true) {
+            Canvas.SetActive(false);
+        }
+
+        
 
         // ********** PRUEBA ************
 
-        //if (Input.GetKeyDown(KeyCode.R)) {
-        //    setEnebled(true);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    setEnebled(false);
-        //}
+        
 
 
         // ******************************
@@ -151,7 +154,7 @@ public class Zombie : MonoBehaviour
 
     public void reducirVida(float daño) 
     {
-        vida = vida - daño;
+        vidaActual = vidaActual - daño;
     }
 
     public void morir() {
@@ -162,16 +165,17 @@ public class Zombie : MonoBehaviour
         anim.SetBool("isDead", true);
         anim.Play("Zombie Die");
         StartCoroutine("descomponer");
+        
     }
 
     public float getVida() {
-        return vida;
+        return vidaActual;
     }
 
     // MECANICA DE SPAWWN
     public void spawnear() 
     {
-        vida = vidaMaxima;
+        vidaActual = vidaMaxima;
         isDead = false;
         isSpawning = true;
         descomponiendo = false;
@@ -191,26 +195,21 @@ public class Zombie : MonoBehaviour
     }
 
     IEnumerator descomponer() {
+        
         yield return new WaitForSeconds(8f);
         descomponiendo = true;
-        yield return new WaitForSeconds(2f);
-        //setEnebled(false);
+        yield return new WaitForSeconds(3f);
         this.gameObject.SetActive(false);
 
     }
 
-    // PRUEBA
+   
 
-    //private Rigidbody[] rigidbodies;
+    
 
-    //public void setEnebled(bool enabled) {
-    //    bool isKinematic =! enabled;
-    //    foreach (Rigidbody rigidbody in rigidbodies) {
-    //        rigidbody.isKinematic = isKinematic;
-    //    }
-    //    anim.enabled = !enabled;
+   
 
-    //}
+    
 
 
 

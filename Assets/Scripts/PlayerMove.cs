@@ -66,11 +66,12 @@ public class PlayerMove : MonoBehaviour
             zR = joystickRotacion.Vertical;
 
             Vector3 direccion = new Vector3(xR, 0, zR);
+            Vector3 oldEulerAngles = this.gameObject.transform.rotation.eulerAngles;
 
             if (xR != 0 || zR != 0)
             {
-                Quaternion aRotar = Quaternion.LookRotation(direccion, Vector3.up);
 
+                Quaternion aRotar = Quaternion.LookRotation(direccion, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, aRotar, rotationSpeed * Time.deltaTime);
             }
 
@@ -84,7 +85,7 @@ public class PlayerMove : MonoBehaviour
 
        
 
-            if (xR != 0f && fireActive == false)
+            if (xR != 0f && fireActive == false && oldEulerAngles == this.gameObject.transform.rotation.eulerAngles)
             {
                 onFire = true;
             
