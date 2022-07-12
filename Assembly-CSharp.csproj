@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\BarraVida.cs" />
     <Compile Include="Assets\Flooded_Grounds\PostProcessing\Runtime\Components\GrainComponent.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+    <Compile Include="Assets\Scripts\ZonaFinal.cs" />
     <Compile Include="Assets\Flooded_Grounds\PostProcessing\Runtime\PostProcessingContext.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Flooded_Grounds\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
@@ -137,7 +138,8 @@
     <Compile Include="Assets\Flooded_Grounds\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
     <Compile Include="Assets\Flooded_Grounds\PostProcessing\Runtime\Models\DitheringModel.cs" />
-    <Compile Include="Assets\Scripts\ZonaFinal.cs" />
+    <Compile Include="Assets\Scripts\ParedTransparente.cs" />
+    <Compile Include="Assets\Scripts\ParedTransDyn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

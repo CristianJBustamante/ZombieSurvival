@@ -436,6 +436,8 @@
 "Assets/Scripts/Enemigos/ZombieSpawn.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Jugador.cs"
+"Assets/Scripts/ParedTransDyn.cs"
+"Assets/Scripts/ParedTransparente.cs"
 "Assets/Scripts/ParticulaBala.cs"
 "Assets/Scripts/PlayerMove.cs"
 "Assets/Scripts/PoolDisparos.cs"
