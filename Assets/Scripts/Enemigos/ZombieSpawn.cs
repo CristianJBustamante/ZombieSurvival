@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieSpawn : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class ZombieSpawn : MonoBehaviour
             zombieASpawn.transform.rotation = Quaternion.identity;
             spawn.Play();
             zombieASpawn.SetActive(true);
+            zombieASpawn.GetComponent<NavMeshAgent>().enabled = true;
             zombieASpawn.transform.GetChild(2).gameObject.SetActive(false);
             zombieASpawn.GetComponent<Zombie>().spawnear();
             

@@ -84,8 +84,8 @@
 47-->[:unityLibrary] D:\Proyectos Unity\Shoot or Die\Proyecto-GameFeel\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:35:13-44
 48            android:resizeableActivity="false"
 48-->[:unityLibrary] D:\Proyectos Unity\Shoot or Die\Proyecto-GameFeel\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:36:13-47
-49            android:screenOrientation="reverseLandscape"
-49-->[:unityLibrary] D:\Proyectos Unity\Shoot or Die\Proyecto-GameFeel\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:37:13-57
+49            android:screenOrientation="landscape"
+49-->[:unityLibrary] D:\Proyectos Unity\Shoot or Die\Proyecto-GameFeel\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:37:13-50
 50            android:theme="@style/UnityThemeSelector" >
 50-->[:unityLibrary] D:\Proyectos Unity\Shoot or Die\Proyecto-GameFeel\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:38:13-54
 51            <intent-filter>

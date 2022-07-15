@@ -53,13 +53,14 @@ public class Arma : MonoBehaviour
         GameObject bulletALanzar = PoolDisparos.sharedInstance.GetPool();
         if (bulletALanzar != null)
         {
-                    bulletALanzar.transform.position = firepoint.transform.position;
-                    bulletALanzar.transform.rotation = Quaternion.identity;
-                    bulletALanzar.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    bulletALanzar.SetActive(true);
-                    bulletALanzar.GetComponent<Rigidbody>().AddForce(direcion * bulletALanzar.GetComponent<Bala>().speed); ;
-                    bulletALanzar.GetComponent<Bala>().damage = daño;
-                    bulletALanzar.GetComponent<Bala>().desactivacion();
+            bulletALanzar.transform.position = firepoint.transform.position;
+            bulletALanzar.transform.rotation = Quaternion.identity;
+            bulletALanzar.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            bulletALanzar.SetActive(true);
+            bulletALanzar.GetComponent<Bala>().trail.GetComponent<TrailRenderer>().enabled = true;
+            bulletALanzar.GetComponent<Rigidbody>().AddForce(direcion * bulletALanzar.GetComponent<Bala>().speed); ;
+            bulletALanzar.GetComponent<Bala>().damage = daño;
+            bulletALanzar.GetComponent<Bala>().desactivacion();
         }
         else
         {
@@ -76,5 +77,7 @@ public class Arma : MonoBehaviour
         
         return direction;
     }
+
+    
 
 }

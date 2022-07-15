@@ -7,6 +7,7 @@ public class Recogible : MonoBehaviour
 
     public GameObject gameManager;
     public float rotationSpeed = 5;
+    public GameObject otraArma;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +26,18 @@ public class Recogible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Jugador") {
+        if (other.gameObject.tag == "Jugador" && this.gameObject.tag == "Barril") {
             gameManager.GetComponent<GameManager>().objetosMision--;
             gameManager.GetComponent<GameManager>().cambiarTextoMision();
             Destroy(transform.GetChild(0).gameObject,0);
             Destroy(this, 0);
         }
+        if (other.gameObject.tag == "Jugador" && this.gameObject.tag != "Barril") {
+            other.gameObject.GetComponent<PlayerMove>().cambiarArma();
+            otraArma.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+        
+
     }
 }

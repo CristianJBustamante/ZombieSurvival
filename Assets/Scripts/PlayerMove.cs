@@ -34,7 +34,7 @@ public class PlayerMove : MonoBehaviour
 
     public bool isDead = false;
 
-
+    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -172,5 +172,6 @@ public class PlayerMove : MonoBehaviour
     public void morir() {
         isDead = true;
         animator.SetBool("Dead", true);
+        gameManager.GetComponent<GameManager>().perderJuego();
     }
 }

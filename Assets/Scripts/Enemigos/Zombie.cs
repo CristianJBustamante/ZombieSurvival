@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
@@ -26,17 +27,22 @@ public class Zombie : MonoBehaviour
 
     GameObject Canvas;
     bool unactiveCanvas = false;
+
+    private NavMeshAgent agente;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        velocidad = 2;
         anim = GetComponent<Animator>();
 
         // ********** PRUEBA ************
         Canvas = this.transform.GetChild(2).gameObject;
 
         // ******************************
+
+        agente = this.GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -49,14 +55,15 @@ public class Zombie : MonoBehaviour
 
             if (anim.GetBool("aRango") == false && isDead == false && isSpawning == false)
             {
-                transform.position = Vector3.MoveTowards(transform.position, jugador.transform.position, velocidad * Time.deltaTime);
+                //transform.position = Vector3.MoveTowards(transform.position, jugador.transform.position, velocidad * Time.deltaTime);
+                agente.destination = jugador.transform.position;
 
                 // Check if the position of the cube and sphere are approximately equal.
-                if (Vector3.Distance(transform.position, jugador.transform.position) < 0.001f)
-                {
-                    // Swap the position of the cylinder.
-                    jugador.transform.position *= -1.0f;
-                }
+                //if (Vector3.Distance(transform.position, jugador.transform.position) < 0.001f)
+                //{
+                //    // Swap the position of the cylinder.
+                //    jugador.transform.position *= -1.0f;
+                //}
             }
 
             if (isDead == false)
@@ -101,12 +108,6 @@ public class Zombie : MonoBehaviour
 
         
 
-        // ********** PRUEBA ************
-
-        
-
-
-        // ******************************
 
 
     }
@@ -119,10 +120,12 @@ public class Zombie : MonoBehaviour
         StartCoroutine("dañar");
         if (collision.gameObject.tag == "Jugador") {
             
+            StartCoroutine(reducirvelocidadJugador());
             anim.SetBool("aRango", true);
-
+            Debug.Log(jugador.GetComponent<PlayerMove>().runSpeed);
         }
     }
+
 
     private void OnCollisionExit(Collision collision)
     {
@@ -130,6 +133,7 @@ public class Zombie : MonoBehaviour
         if (collision.gameObject.tag == "Jugador")
         {
             
+            Debug.Log(jugador.GetComponent<PlayerMove>().runSpeed);
             StartCoroutine("pasarCorrer");
         }
     }
@@ -158,7 +162,7 @@ public class Zombie : MonoBehaviour
     }
 
     public void morir() {
-        
+        agente.enabled = false;
         isDead = true;
         this.GetComponent<Rigidbody>().detectCollisions = false;
         this.GetComponent<CapsuleCollider>().enabled = false;
@@ -198,22 +202,33 @@ public class Zombie : MonoBehaviour
         
         yield return new WaitForSeconds(8f);
         descomponiendo = true;
+        transform.GetChild(1).gameObject.transform.GetChild(3).gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(3f);
         this.gameObject.SetActive(false);
-
+        
     }
 
-   
+    IEnumerator reducirvelocidadJugador()
 
-    
+    {
+        float decremento = jugador.GetComponent<PlayerMove>().runSpeed * 0.2f;
+        jugador.GetComponent<PlayerMove>().runSpeed = jugador.GetComponent<PlayerMove>().runSpeed - decremento;
+        yield return new WaitForSeconds(2f);
+        jugador.GetComponent<PlayerMove>().runSpeed = jugador.GetComponent<PlayerMove>().runSpeed + decremento;
+        StopCoroutine(reducirvelocidadJugador());
+    }
 
-   
-
-    
 
 
 
-    
+
+
+
+
+
+
+
+
 
 
 }
